@@ -1,0 +1,4 @@
+global mfconfig_libs
+set mfconfig_libs ""
+global libmudflapth
+set libmudflapth "0"

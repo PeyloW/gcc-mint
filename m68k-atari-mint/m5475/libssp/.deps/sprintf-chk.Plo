@@ -1,0 +1,38 @@
+sprintf-chk.lo: ../../../../gcc-4.6.4/libssp/sprintf-chk.c config.h \
+ ssp/ssp.h /Users/folsson/Downloads/gcc-mint/./gcc/include/stdarg.h \
+ /Users/folsson/Downloads/gcc-mint/./gcc/include-fixed/limits.h \
+ /opt/cross-mint/m68k-atari-mint/include/stdio.h \
+ /opt/cross-mint/m68k-atari-mint/include/features.h \
+ /opt/cross-mint/m68k-atari-mint/include/compiler.h \
+ /opt/cross-mint/m68k-atari-mint/include/linker.h \
+ /opt/cross-mint/m68k-atari-mint/include/sys/cdefs.h \
+ /Users/folsson/Downloads/gcc-mint/./gcc/include/stddef.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/types.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/stdio_lim.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/mint_stdio.h
+
+config.h:
+
+ssp/ssp.h:
+
+/Users/folsson/Downloads/gcc-mint/./gcc/include/stdarg.h:
+
+/Users/folsson/Downloads/gcc-mint/./gcc/include-fixed/limits.h:
+
+/opt/cross-mint/m68k-atari-mint/include/stdio.h:
+
+/opt/cross-mint/m68k-atari-mint/include/features.h:
+
+/opt/cross-mint/m68k-atari-mint/include/compiler.h:
+
+/opt/cross-mint/m68k-atari-mint/include/linker.h:
+
+/opt/cross-mint/m68k-atari-mint/include/sys/cdefs.h:
+
+/Users/folsson/Downloads/gcc-mint/./gcc/include/stddef.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/types.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/stdio_lim.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/mint_stdio.h:

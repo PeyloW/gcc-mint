@@ -1,0 +1,41 @@
+charset.o: ../../gcc-4.6.4/libcpp/charset.c config.h \
+  ../../gcc-4.6.4/libcpp/system.h ../intl/libintl.h \
+  ../../gcc-4.6.4/libcpp/../include/filenames.h \
+  ../../gcc-4.6.4/libcpp/../include/libiberty.h \
+  ../../gcc-4.6.4/libcpp/../include/ansidecl.h \
+  ../../gcc-4.6.4/libcpp/../include/safe-ctype.h \
+  ../../gcc-4.6.4/libcpp/include/cpplib.h \
+  ../../gcc-4.6.4/libcpp/include/symtab.h \
+  ../../gcc-4.6.4/libcpp/../include/obstack.h \
+  ../../gcc-4.6.4/libcpp/include/line-map.h \
+  ../../gcc-4.6.4/libcpp/internal.h \
+  ../../gcc-4.6.4/libcpp/include/cpp-id-data.h \
+  ../../gcc-4.6.4/libcpp/ucnid.h
+
+config.h:
+
+../../gcc-4.6.4/libcpp/system.h:
+
+../intl/libintl.h:
+
+../../gcc-4.6.4/libcpp/../include/filenames.h:
+
+../../gcc-4.6.4/libcpp/../include/libiberty.h:
+
+../../gcc-4.6.4/libcpp/../include/ansidecl.h:
+
+../../gcc-4.6.4/libcpp/../include/safe-ctype.h:
+
+../../gcc-4.6.4/libcpp/include/cpplib.h:
+
+../../gcc-4.6.4/libcpp/include/symtab.h:
+
+../../gcc-4.6.4/libcpp/../include/obstack.h:
+
+../../gcc-4.6.4/libcpp/include/line-map.h:
+
+../../gcc-4.6.4/libcpp/internal.h:
+
+../../gcc-4.6.4/libcpp/include/cpp-id-data.h:
+
+../../gcc-4.6.4/libcpp/ucnid.h:

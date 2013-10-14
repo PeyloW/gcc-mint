@@ -1,0 +1,26 @@
+symtab.o: ../../gcc-4.6.4/libcpp/symtab.c config.h \
+  ../../gcc-4.6.4/libcpp/system.h ../intl/libintl.h \
+  ../../gcc-4.6.4/libcpp/../include/filenames.h \
+  ../../gcc-4.6.4/libcpp/../include/libiberty.h \
+  ../../gcc-4.6.4/libcpp/../include/ansidecl.h \
+  ../../gcc-4.6.4/libcpp/../include/safe-ctype.h \
+  ../../gcc-4.6.4/libcpp/include/symtab.h \
+  ../../gcc-4.6.4/libcpp/../include/obstack.h
+
+config.h:
+
+../../gcc-4.6.4/libcpp/system.h:
+
+../intl/libintl.h:
+
+../../gcc-4.6.4/libcpp/../include/filenames.h:
+
+../../gcc-4.6.4/libcpp/../include/libiberty.h:
+
+../../gcc-4.6.4/libcpp/../include/ansidecl.h:
+
+../../gcc-4.6.4/libcpp/../include/safe-ctype.h:
+
+../../gcc-4.6.4/libcpp/include/symtab.h:
+
+../../gcc-4.6.4/libcpp/../include/obstack.h:

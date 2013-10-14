@@ -1,0 +1,42 @@
+mf-heuristics.lo: ../../../../gcc-4.6.4/libmudflap/mf-heuristics.c \
+ config.h /opt/cross-mint/m68k-atari-mint/include/stdio.h \
+ /opt/cross-mint/m68k-atari-mint/include/features.h \
+ /opt/cross-mint/m68k-atari-mint/include/compiler.h \
+ /opt/cross-mint/m68k-atari-mint/include/linker.h \
+ /opt/cross-mint/m68k-atari-mint/include/sys/cdefs.h \
+ /Users/folsson/Downloads/gcc-mint/./gcc/include/stddef.h \
+ /Users/folsson/Downloads/gcc-mint/./gcc/include/stdarg.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/types.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/stdio_lim.h \
+ /opt/cross-mint/m68k-atari-mint/include/bits/mint_stdio.h \
+ ../../../../gcc-4.6.4/libmudflap/mf-runtime.h \
+ ../../../../gcc-4.6.4/libmudflap/mf-impl.h \
+ /opt/cross-mint/m68k-atari-mint/include/stdint.h
+
+config.h:
+
+/opt/cross-mint/m68k-atari-mint/include/stdio.h:
+
+/opt/cross-mint/m68k-atari-mint/include/features.h:
+
+/opt/cross-mint/m68k-atari-mint/include/compiler.h:
+
+/opt/cross-mint/m68k-atari-mint/include/linker.h:
+
+/opt/cross-mint/m68k-atari-mint/include/sys/cdefs.h:
+
+/Users/folsson/Downloads/gcc-mint/./gcc/include/stddef.h:
+
+/Users/folsson/Downloads/gcc-mint/./gcc/include/stdarg.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/types.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/stdio_lim.h:
+
+/opt/cross-mint/m68k-atari-mint/include/bits/mint_stdio.h:
+
+../../../../gcc-4.6.4/libmudflap/mf-runtime.h:
+
+../../../../gcc-4.6.4/libmudflap/mf-impl.h:
+
+/opt/cross-mint/m68k-atari-mint/include/stdint.h:
