@@ -1,4 +1,0 @@
-libssp_nonshared_la-ssp-local.lo: \
- ../../../../gcc-4.6.4/libssp/ssp-local.c config.h
-
-config.h:

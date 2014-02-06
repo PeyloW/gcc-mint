@@ -1,5 +1,0 @@
-@set version-GCC 4.6.4
-@clear DEVELOPMENT
-@set srcdir /Users/folsson/Downloads/gcc-mint/gcc/../../gcc-4.6.4/gcc
-@set VERSION_PACKAGE (GCC) 
-@set BUGURL @uref{http://gcc.gnu.org/bugs.html}
