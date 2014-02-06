@@ -32,14 +32,14 @@ endif
 # -------------------------------
 VPATH=../gcc-4.6.4
 
-build_alias=x86_64-apple-darwin13.0.0
+build_alias=x86_64-apple-darwin14.0.0
 build_vendor=apple
-build_os=darwin13.0.0
-build=x86_64-apple-darwin13.0.0
-host_alias=x86_64-apple-darwin13.0.0
+build_os=darwin14.0.0
+build=x86_64-apple-darwin14.0.0
+host_alias=x86_64-apple-darwin14.0.0
 host_vendor=apple
-host_os=darwin13.0.0
-host=x86_64-apple-darwin13.0.0
+host_os=darwin14.0.0
+host=x86_64-apple-darwin14.0.0
 target_alias=m68k-atari-mint
 target_vendor=atari
 target_os=mint
@@ -93,7 +93,7 @@ MAINTAINER_MODE_TRUE = #
 # -------------------------------------------------
 
 # The gcc driver likes to know the arguments it was configured with.
-TOPLEVEL_CONFIGURE_ARGUMENTS=../gcc-4.6.4/configure --prefix=/opt/cross-mint/ --target=m68k-atari-mint --enable-languages=c,c++ --disable-shared
+TOPLEVEL_CONFIGURE_ARGUMENTS=../gcc-4.6.4/configure --prefix=/opt/cross-mint/ --target=m68k-atari-mint --disable-shared target_alias=m68k-atari-mint --enable-languages=c,c++,lto --with-arch=m68k
 
 tooldir = ${exec_prefix}/m68k-atari-mint
 build_tooldir = ${exec_prefix}/m68k-atari-mint
@@ -110,10 +110,10 @@ RPATH_ENVVAR = DYLD_LIBRARY_PATH
 GCC_SHLIB_SUBDIR = 
 
 # Build programs are put under this directory.
-BUILD_SUBDIR = build-x86_64-apple-darwin13.0.0
+BUILD_SUBDIR = build-x86_64-apple-darwin14.0.0
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the build system.
-BUILD_CONFIGARGS =  --cache-file=../config.cache '--prefix=/opt/cross-mint/' '--disable-shared' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-build-subdir="$(BUILD_SUBDIR)"
+BUILD_CONFIGARGS =  --cache-file=../config.cache '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-build-subdir="$(BUILD_SUBDIR)"
 
 # Linker flags to use on the host, for stage1 or when not
 # bootstrapping.
@@ -176,7 +176,7 @@ SUBDIRS =  intl libiberty zlib libcpp libdecnumber fixincludes gcc lto-plugin
 TARGET_CONFIGDIRS =  libgcc libstdc++-v3 libmudflap libssp libquadmath
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the host system.
-HOST_CONFIGARGS =  --cache-file=./config.cache  '--prefix=/opt/cross-mint/' '--disable-shared' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking
+HOST_CONFIGARGS =  --cache-file=./config.cache  '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking
 # Host programs are put under this directory, which is . except if building
 # with srcdir=..
 HOST_SUBDIR = .
@@ -245,7 +245,7 @@ POSTSTAGE1_HOST_EXPORTS = \
 TARGET_SUBDIR = m68k-atari-mint
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the target.
-TARGET_CONFIGARGS = --cache-file=./config.cache --enable-multilib --with-cross-host=x86_64-apple-darwin13.0.0   '--prefix=/opt/cross-mint/' '--disable-shared' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-target-subdir="$(TARGET_SUBDIR)"
+TARGET_CONFIGARGS = --cache-file=./config.cache --enable-multilib --with-cross-host=x86_64-apple-darwin14.0.0   '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-target-subdir="$(TARGET_SUBDIR)"
 # This is the list of variables to export in the environment when
 # configuring subdirectories for the target system.
 BASE_TARGET_EXPORTS = \
@@ -338,7 +338,7 @@ BUILD_PREFIX_1 = @BUILD_PREFIX_1@
 
 # Flags to pass to stage2 and later makes.  They are defined
 # here so that they can be overridden by Makefile fragments.
-BOOT_CFLAGS= -g -O2 -mfastcall
+BOOT_CFLAGS= -g -O2
 BOOT_LDFLAGS=
 BOOT_ADAFLAGS=-gnatpg -gnata
 
@@ -369,7 +369,7 @@ AR_FLAGS = rc
 CC = gcc
 CXX = g++
 DLLTOOL = dlltool
-LD = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+LD = /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.10.xctoolchain/usr/bin/ld
 LIPO = lipo
 NM = nm
 OBJDUMP = objdump
@@ -497,10 +497,10 @@ COMPILER_NM_FOR_TARGET=$$r/$(HOST_SUBDIR)/gcc/nm
 CFLAGS_FOR_TARGET = -g -O2
 CXXFLAGS_FOR_TARGET = -g -O2
 
-LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET) -mfastcall
-LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates -mfastcall
+LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)
+LIBCXXFLAGS_FOR_TARGET = $(CXXFLAGS_FOR_TARGET) -fno-implicit-templates
 LDFLAGS_FOR_TARGET = 
-GOCFLAGS_FOR_TARGET = -O2 -g -mfastcall
+GOCFLAGS_FOR_TARGET = -O2 -g
 
 FLAGS_FOR_TARGET =  -B$(build_tooldir)/bin/ -B$(build_tooldir)/lib/ -isystem $(build_tooldir)/include -isystem $(build_tooldir)/sys-include
 SYSROOT_CFLAGS_FOR_TARGET = 
