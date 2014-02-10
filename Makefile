@@ -93,7 +93,7 @@ MAINTAINER_MODE_TRUE = #
 # -------------------------------------------------
 
 # The gcc driver likes to know the arguments it was configured with.
-TOPLEVEL_CONFIGURE_ARGUMENTS=../gcc-4.6.4/configure --prefix=/opt/cross-mint/ --target=m68k-atari-mint --disable-shared target_alias=m68k-atari-mint --enable-languages=c,c++,lto --with-arch=m68k
+TOPLEVEL_CONFIGURE_ARGUMENTS=../gcc-4.6.4/configure --prefix=/opt/cross-mint/ --target=m68k-atari-mint --disable-shared target_alias=m68k-atari-mint --enable-languages=c --with-arch=m68k
 
 tooldir = ${exec_prefix}/m68k-atari-mint
 build_tooldir = ${exec_prefix}/m68k-atari-mint
@@ -113,7 +113,7 @@ GCC_SHLIB_SUBDIR =
 BUILD_SUBDIR = build-x86_64-apple-darwin14.0.0
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the build system.
-BUILD_CONFIGARGS =  --cache-file=../config.cache '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-build-subdir="$(BUILD_SUBDIR)"
+BUILD_CONFIGARGS =  --cache-file=../config.cache '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-build-subdir="$(BUILD_SUBDIR)"
 
 # Linker flags to use on the host, for stage1 or when not
 # bootstrapping.
@@ -173,10 +173,10 @@ EXTRA_BUILD_FLAGS = \
 
 # This is the list of directories to built for the host system.
 SUBDIRS =  intl libiberty zlib libcpp libdecnumber fixincludes gcc lto-plugin
-TARGET_CONFIGDIRS =  libgcc libstdc++-v3 libmudflap libssp libquadmath
+TARGET_CONFIGDIRS =  libgcc libmudflap libssp libquadmath
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the host system.
-HOST_CONFIGARGS =  --cache-file=./config.cache  '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking
+HOST_CONFIGARGS =  --cache-file=./config.cache  '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking
 # Host programs are put under this directory, which is . except if building
 # with srcdir=..
 HOST_SUBDIR = .
@@ -245,7 +245,7 @@ POSTSTAGE1_HOST_EXPORTS = \
 TARGET_SUBDIR = m68k-atari-mint
 # This is set by the configure script to the arguments to use when configuring
 # directories built for the target.
-TARGET_CONFIGARGS = --cache-file=./config.cache --enable-multilib --with-cross-host=x86_64-apple-darwin14.0.0   '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,c++,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-target-subdir="$(TARGET_SUBDIR)"
+TARGET_CONFIGARGS = --cache-file=./config.cache --enable-multilib --with-cross-host=x86_64-apple-darwin14.0.0   '--prefix=/opt/cross-mint/' '--disable-shared' '--with-arch=m68k' '--enable-languages=c,lto' --program-transform-name='s&^&m68k-atari-mint-&' --disable-option-checking --with-target-subdir="$(TARGET_SUBDIR)"
 # This is the list of variables to export in the environment when
 # configuring subdirectories for the target system.
 BASE_TARGET_EXPORTS = \
@@ -474,8 +474,8 @@ CC_FOR_TARGET=$(STAGE_CC_WRAPPER) $$r/$(HOST_SUBDIR)/gcc/xgcc -B$$r/$(HOST_SUBDI
 # build libgcc2.a.  We define it here so that it can itself be
 # overridden on the command line.
 GCC_FOR_TARGET=$(STAGE_CC_WRAPPER) $$r/$(HOST_SUBDIR)/gcc/xgcc -B$$r/$(HOST_SUBDIR)/gcc/
-CXX_FOR_TARGET=$(STAGE_CC_WRAPPER) $$r/$(HOST_SUBDIR)/gcc/g++ -B$$r/$(HOST_SUBDIR)/gcc/ -nostdinc++ `if test -f $$r/$(TARGET_SUBDIR)/libstdc++-v3/scripts/testsuite_flags; then $(SHELL) $$r/$(TARGET_SUBDIR)/libstdc++-v3/scripts/testsuite_flags --build-includes; else echo -funconfigured-libstdc++-v3 ; fi` -L$$r/$(TARGET_SUBDIR)/libstdc++-v3/src -L$$r/$(TARGET_SUBDIR)/libstdc++-v3/src/.libs
-RAW_CXX_FOR_TARGET=$(STAGE_CC_WRAPPER) $$r/$(HOST_SUBDIR)/gcc/xgcc -shared-libgcc -B$$r/$(HOST_SUBDIR)/gcc -nostdinc++ -L$$r/$(TARGET_SUBDIR)/libstdc++-v3/src -L$$r/$(TARGET_SUBDIR)/libstdc++-v3/src/.libs
+CXX_FOR_TARGET=$(STAGE_CC_WRAPPER) m68k-atari-mint-c++
+RAW_CXX_FOR_TARGET=$(STAGE_CC_WRAPPER) m68k-atari-mint-c++
 GCJ_FOR_TARGET=$(STAGE_CC_WRAPPER) m68k-atari-mint-gcj
 GFORTRAN_FOR_TARGET=$(STAGE_CC_WRAPPER) m68k-atari-mint-gfortran
 GOC_FOR_TARGET=$(STAGE_CC_WRAPPER) m68k-atari-mint-gccgo
@@ -530,7 +530,6 @@ BOOT_LDFLAGS += `case ${host} in *-*-darwin[1][1-9]*) echo -Wl,-no_pie ;; esac;`
 # so that programs built for the target machine work.
 TARGET_LIB_PATH = $(TARGET_LIB_PATH_libstdc++-v3)$(TARGET_LIB_PATH_libmudflap)$(TARGET_LIB_PATH_libssp)$(TARGET_LIB_PATH_libgomp)$(HOST_LIB_PATH_gcc)
 
-TARGET_LIB_PATH_libstdc++-v3 = $$r/$(TARGET_SUBDIR)/libstdc++-v3/src/.libs:
 
 TARGET_LIB_PATH_libmudflap = $$r/$(TARGET_SUBDIR)/libmudflap/.libs:
 
@@ -558,21 +557,6 @@ HOST_LIB_PATH_gcc = $$r/$(HOST_SUBDIR)/gcc$(GCC_SHLIB_SUBDIR):$$r/$(HOST_SUBDIR)
 
 CXX_FOR_TARGET_FLAG_TO_PASS = \
 	"CXX_FOR_TARGET=$(CXX_FOR_TARGET)"
-# CXX_FOR_TARGET is tricky to get right for target libs that require a
-# functional C++ compiler.  When we recurse, if we expand
-# CXX_FOR_TARGET before configuring libstdc++-v3, we won't get
-# libstdc++ include flags from the script.  Instead, we get an
-# -funconfigured-* word, so that we'll get errors if this invalid C++
-# command line is used for anything, but also so that we can use the
-# word to decide whether or not to pass on this CXX_FOR_TARGET.  If we
-# don't pass it on, sub-make will use the default definition, that
-# re-expands it at the time of use, so we'll get it right when we need
-# it.  One potential exception is the expansion of CXX_FOR_TARGET
-# passed down as part of CXX within TARGET_FLAGS, but this wouldn't
-# really work, for C++ host programs can't depend on the current-stage
-# C++ target library.
-CXX_FOR_TARGET_FLAG_TO_PASS = \
-	$(shell if echo "$(CXX_FOR_TARGET)" | grep " -funconfigured-" > /dev/null; then :; else echo '"CXX_FOR_TARGET=$(CXX_FOR_TARGET)"'; fi)
 
 # Flags to pass down to all sub-makes.
 BASE_FLAGS_TO_PASS = \
@@ -979,7 +963,6 @@ all-host: maybe-all-lto-plugin
 
 .PHONY: all-target
 
-all-target: maybe-all-target-libstdc++-v3
 all-target: maybe-all-target-libmudflap
 all-target: maybe-all-target-libssp
 all-target: maybe-all-target-newlib
@@ -11944,40 +11927,6 @@ maintainer-clean-lto-plugin:
 
 .PHONY: configure-target-libstdc++-v3 maybe-configure-target-libstdc++-v3
 maybe-configure-target-libstdc++-v3:
-maybe-configure-target-libstdc++-v3: configure-target-libstdc++-v3
-configure-target-libstdc++-v3: 
-	@r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	echo "Checking multilib configuration for libstdc++-v3..."; \
-	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libstdc++-v3 ; \
-	$(CC_FOR_TARGET) --print-multi-lib > $(TARGET_SUBDIR)/libstdc++-v3/multilib.tmp 2> /dev/null ; \
-	if test -r $(TARGET_SUBDIR)/libstdc++-v3/multilib.out; then \
-	  if cmp -s $(TARGET_SUBDIR)/libstdc++-v3/multilib.tmp $(TARGET_SUBDIR)/libstdc++-v3/multilib.out; then \
-	    rm -f $(TARGET_SUBDIR)/libstdc++-v3/multilib.tmp; \
-	  else \
-	    rm -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile; \
-	    mv $(TARGET_SUBDIR)/libstdc++-v3/multilib.tmp $(TARGET_SUBDIR)/libstdc++-v3/multilib.out; \
-	  fi; \
-	else \
-	  mv $(TARGET_SUBDIR)/libstdc++-v3/multilib.tmp $(TARGET_SUBDIR)/libstdc++-v3/multilib.out; \
-	fi; \
-	test ! -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile || exit 0; \
-	$(SHELL) $(srcdir)/mkinstalldirs $(TARGET_SUBDIR)/libstdc++-v3 ; \
-	$(RAW_CXX_TARGET_EXPORTS)  \
-	echo Configuring in $(TARGET_SUBDIR)/libstdc++-v3; \
-	cd "$(TARGET_SUBDIR)/libstdc++-v3" || exit 1; \
-	case $(srcdir) in \
-	  /* | [A-Za-z]:[\\/]*) topdir=$(srcdir) ;; \
-	  *) topdir=`echo $(TARGET_SUBDIR)/libstdc++-v3/ | \
-		sed -e 's,\./,,g' -e 's,[^/]*/,../,g' `$(srcdir) ;; \
-	esac; \
-	srcdiroption="--srcdir=$${topdir}/libstdc++-v3"; \
-	libsrcdir="$$s/libstdc++-v3"; \
-	rm -f no-such-file || : ; \
-	CONFIG_SITE=no-such-file $(SHELL) $${libsrcdir}/configure \
-	  $(TARGET_CONFIGARGS) --build=${build_alias} --host=${target_alias} \
-	  --target=${target_alias} $${srcdiroption}  \
-	  || exit 1
 
 
 
@@ -12005,15 +11954,6 @@ maybe-configure-stagefeedback-target-libstdc++-v3:
 
 .PHONY: all-target-libstdc++-v3 maybe-all-target-libstdc++-v3
 maybe-all-target-libstdc++-v3:
-TARGET-target-libstdc++-v3=all
-maybe-all-target-libstdc++-v3: all-target-libstdc++-v3
-all-target-libstdc++-v3: configure-target-libstdc++-v3
-	@r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS)  \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) $(EXTRA_TARGET_FLAGS) 'CXX=$$(RAW_CXX_FOR_TARGET)' 'CXX_FOR_TARGET=$$(RAW_CXX_FOR_TARGET)'  \
-		$(TARGET-target-libstdc++-v3))
 
 
 
@@ -12059,355 +11999,53 @@ maybe-clean-stagefeedback-target-libstdc++-v3:
 
 .PHONY: check-target-libstdc++-v3 maybe-check-target-libstdc++-v3
 maybe-check-target-libstdc++-v3:
-maybe-check-target-libstdc++-v3: check-target-libstdc++-v3
-
-check-target-libstdc++-v3:
-	@: $(MAKE); $(unstage)
-	@r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(TARGET_FLAGS_TO_PASS)  'CXX=$$(RAW_CXX_FOR_TARGET)' 'CXX_FOR_TARGET=$$(RAW_CXX_FOR_TARGET)'   check)
-
 
 .PHONY: install-target-libstdc++-v3 maybe-install-target-libstdc++-v3
 maybe-install-target-libstdc++-v3:
-maybe-install-target-libstdc++-v3: install-target-libstdc++-v3
-
-install-target-libstdc++-v3: installdirs
-	@: $(MAKE); $(unstage)
-	@r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(TARGET_FLAGS_TO_PASS)  install)
-
 
 .PHONY: install-strip-target-libstdc++-v3 maybe-install-strip-target-libstdc++-v3
 maybe-install-strip-target-libstdc++-v3:
-maybe-install-strip-target-libstdc++-v3: install-strip-target-libstdc++-v3
-
-install-strip-target-libstdc++-v3: installdirs
-	@: $(MAKE); $(unstage)
-	@r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(TARGET_FLAGS_TO_PASS)  install-strip)
-
 
 # Other targets (info, dvi, pdf, etc.)
 
 .PHONY: maybe-info-target-libstdc++-v3 info-target-libstdc++-v3
 maybe-info-target-libstdc++-v3:
-maybe-info-target-libstdc++-v3: info-target-libstdc++-v3
-
-info-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing info in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           info) \
-	  || exit 1
-
 
 .PHONY: maybe-dvi-target-libstdc++-v3 dvi-target-libstdc++-v3
 maybe-dvi-target-libstdc++-v3:
-maybe-dvi-target-libstdc++-v3: dvi-target-libstdc++-v3
-
-dvi-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing dvi in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           dvi) \
-	  || exit 1
-
 
 .PHONY: maybe-pdf-target-libstdc++-v3 pdf-target-libstdc++-v3
 maybe-pdf-target-libstdc++-v3:
-maybe-pdf-target-libstdc++-v3: pdf-target-libstdc++-v3
-
-pdf-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing pdf in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           pdf) \
-	  || exit 1
-
 
 .PHONY: maybe-html-target-libstdc++-v3 html-target-libstdc++-v3
 maybe-html-target-libstdc++-v3:
-maybe-html-target-libstdc++-v3: html-target-libstdc++-v3
-
-html-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing html in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           html) \
-	  || exit 1
-
 
 .PHONY: maybe-TAGS-target-libstdc++-v3 TAGS-target-libstdc++-v3
 maybe-TAGS-target-libstdc++-v3:
-maybe-TAGS-target-libstdc++-v3: TAGS-target-libstdc++-v3
-
-TAGS-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing TAGS in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           TAGS) \
-	  || exit 1
-
 
 .PHONY: maybe-install-info-target-libstdc++-v3 install-info-target-libstdc++-v3
 maybe-install-info-target-libstdc++-v3:
-maybe-install-info-target-libstdc++-v3: install-info-target-libstdc++-v3
-
-install-info-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 \
-    info-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing install-info in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           install-info) \
-	  || exit 1
-
 
 .PHONY: maybe-install-pdf-target-libstdc++-v3 install-pdf-target-libstdc++-v3
 maybe-install-pdf-target-libstdc++-v3:
-maybe-install-pdf-target-libstdc++-v3: install-pdf-target-libstdc++-v3
-
-install-pdf-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 \
-    pdf-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing install-pdf in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           install-pdf) \
-	  || exit 1
-
 
 .PHONY: maybe-install-html-target-libstdc++-v3 install-html-target-libstdc++-v3
 maybe-install-html-target-libstdc++-v3:
-maybe-install-html-target-libstdc++-v3: install-html-target-libstdc++-v3
-
-install-html-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 \
-    html-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing install-html in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           install-html) \
-	  || exit 1
-
 
 .PHONY: maybe-installcheck-target-libstdc++-v3 installcheck-target-libstdc++-v3
 maybe-installcheck-target-libstdc++-v3:
-maybe-installcheck-target-libstdc++-v3: installcheck-target-libstdc++-v3
-
-installcheck-target-libstdc++-v3: \
-    configure-target-libstdc++-v3 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing installcheck in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           installcheck) \
-	  || exit 1
-
 
 .PHONY: maybe-mostlyclean-target-libstdc++-v3 mostlyclean-target-libstdc++-v3
 maybe-mostlyclean-target-libstdc++-v3:
-maybe-mostlyclean-target-libstdc++-v3: mostlyclean-target-libstdc++-v3
-
-mostlyclean-target-libstdc++-v3: 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing mostlyclean in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           mostlyclean) \
-	  || exit 1
-
 
 .PHONY: maybe-clean-target-libstdc++-v3 clean-target-libstdc++-v3
 maybe-clean-target-libstdc++-v3:
-maybe-clean-target-libstdc++-v3: clean-target-libstdc++-v3
-
-clean-target-libstdc++-v3: 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing clean in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           clean) \
-	  || exit 1
-
 
 .PHONY: maybe-distclean-target-libstdc++-v3 distclean-target-libstdc++-v3
 maybe-distclean-target-libstdc++-v3:
-maybe-distclean-target-libstdc++-v3: distclean-target-libstdc++-v3
-
-distclean-target-libstdc++-v3: 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing distclean in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           distclean) \
-	  || exit 1
-
 
 .PHONY: maybe-maintainer-clean-target-libstdc++-v3 maintainer-clean-target-libstdc++-v3
 maybe-maintainer-clean-target-libstdc++-v3:
-maybe-maintainer-clean-target-libstdc++-v3: maintainer-clean-target-libstdc++-v3
-
-maintainer-clean-target-libstdc++-v3: 
-	@: $(MAKE); $(unstage)
-	@[ -f $(TARGET_SUBDIR)/libstdc++-v3/Makefile ] || exit 0 ; \
-	r=`${PWD_COMMAND}`; export r; \
-	s=`cd $(srcdir); ${PWD_COMMAND}`; export s; \
-	$(RAW_CXX_TARGET_EXPORTS) \
-	echo "Doing maintainer-clean in $(TARGET_SUBDIR)/libstdc++-v3" ; \
-	for flag in $(EXTRA_TARGET_FLAGS); do \
-	  eval `echo "$$flag" | sed -e "s|^\([^=]*\)=\(.*\)|\1='\2'; export \1|"`; \
-	done; \
-	(cd $(TARGET_SUBDIR)/libstdc++-v3 && \
-	  $(MAKE) $(BASE_FLAGS_TO_PASS) "AR=$${AR}" "AS=$${AS}" \
-	          "CC=$${CC}" "CXX=$${CXX}" "LD=$${LD}" "NM=$${NM}" \
-	          "RANLIB=$${RANLIB}" \
-	          "DLLTOOL=$${DLLTOOL}" "WINDRES=$${WINDRES}" "WINDMC=$${WINDMC}" \
-	           maintainer-clean) \
-	  || exit 1
-
 
 
 
